@@ -25,7 +25,7 @@ app.use("/api/test", testRoute);
 app.use("/api/chats", chatRouter);
 app.use("/api/messages", messageRouter);
 
-app.listen(8500, () => {
+app.listen(process.env.PORT ||8500, () => {
   connectToMongoDb();
   console.log("server is running");
 });
