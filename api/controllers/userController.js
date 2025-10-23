@@ -1,3 +1,4 @@
+import Chats from "../models/chatModel.js";
 import Post from "../models/postModel.js";
 import savedPosts from "../models/savedPost.js";
 import User from "../models/userModel.js";
@@ -83,3 +84,15 @@ export const profilePosts = async (req, res) => {
     res.status(500).json({ message: "Failed to get Profile" });
   }
 };
+
+export const getNotification = async (req, res) => {
+  const tokenUserId = req.userId;
+  try {
+    const notification = await Chats.countDocuments({ user:{$in:[tokenUserId] },seenBy:{$nin:[tokenUserId] }});
+    res.status(200).json(notification);
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ message: "Failed to get Profile" });
+  }
+};
+

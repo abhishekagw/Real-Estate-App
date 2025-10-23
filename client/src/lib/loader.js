@@ -15,8 +15,15 @@ export const listPageLoader = async ({ request, params }) => {
 };
 
 export const profilePageLoader = async () => {
-  const userPromise = apiRequests.get("/users/profilePosts");
-  return defer({
-    userResponse: userPromise,
-  });
+  try {
+    
+    const userPromise = apiRequests.get("/users/profilePosts");
+    const chatPromise = apiRequests.get('/chats')
+    return defer({
+      userResponse: userPromise,
+      chatResponse: chatPromise,
+    });
+  } catch (error) {
+    console.log(error)
+  }
 };
